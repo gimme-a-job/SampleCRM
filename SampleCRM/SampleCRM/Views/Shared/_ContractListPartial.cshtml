@@ -1,0 +1,71 @@
+﻿@using SampleCRM.Models.ViewModels;
+
+@model ContractListViewModel
+
+<h3>契約情報一覧</h3>
+<p>
+    <a asp-controller="Contracts" asp-action="Create" asp-route-id="@Model.OrderCode">契約追加</a>
+</p>
+<div>
+    <hr />
+    @if (!Model.Contracts.Any() || Model.Contracts.First() is not { } firstContract)
+    {
+        <text><b>契約情報が登録されていません</b></text>
+    }
+    else
+    {
+        <table class="table" style="vertical-align:middle">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstContract.ContractStatusName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstContract.UpdateMethodName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstContract.SystemKindName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstContract.LicenseKeyOrOldID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstContract.StartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstContract.EndDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstContract.LicenceDistricts)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Contracts)
+                {
+                    <tr>
+                        <td>@item.ContractStatusName</td>
+                        <td>@item.UpdateMethodName</td>
+                        <td>@item.SystemKindName</td>
+                        <td>@item.LicenseKeyOrOldID</td>
+                        <td>@item.StartDate</td>
+                        <td>@item.EndDate</td>
+                        <td>@item.LicenceDistricts</td>
+                        <td>
+                            <div>
+                                <a asp-controller="ClientDepartment" asp-action="Details" asp-route-id="@item.ContractCode">詳細</a>
+                            </div>
+                            <div>
+                                <a asp-controller="ClientDepartment" asp-action="Edit" asp-route-id="@item.ContractCode">編集</a>
+                            </div>
+                            <div>
+                                <a asp-controller="ClientDepartment" asp-action="Delete" asp-route-id="@item.ContractCode">削除</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

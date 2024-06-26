@@ -1,0 +1,48 @@
+﻿@using SampleCRM.Identity
+@using SampleCRM.Models.TableModels
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using static SampleCRM.Identity.AuthorizationPolicies
+
+@inject IAuthorizationService AuthorizationService
+@inject SignInManager<SampleCRM.Models.TableModels.IdentityUser> SignInManager
+@inject UserManager<SampleCRM.Models.TableModels.IdentityUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            @if ((await AuthorizationService.AuthorizeAsync(User, nameof(UserAdministratorPolicy))).Succeeded)
+            {
+                <a id="manage" class="nav-link text-white" asp-action="Edit" asp-controller="User" title="Manage" asp-route-id="@UserManager.GetUserId(User)">
+                    ログイン中：@UserManager.GetUserName(User)
+                </a>
+            }
+            else
+            {
+                <span class="nav-link text-white">
+                    @UserManager.GetUserName(User)
+                </span>
+            }
+        </li>
+        <li class="nav-item">
+            <form id="logoutForm" class="form-inline" asp-action="Logout"
+                  asp-controller="Account"
+                  asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button id="logout" type="submit" class="nav-link btn btn-link text-white">ログアウト</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        @*  ユーザー登録はログイン後に行うように変更
+    <li class="nav-item">
+    <a class="nav-link text-dark" id="register" asp-action="Register"
+    asp-controller="Account">Register</a>
+    </li>
+    *@
+        <li class="nav-item">
+            <a class="nav-link text-white" id="login" asp-action="Login" asp-controller="Account">ログイン</a>
+        </li>
+    }
+</ul>

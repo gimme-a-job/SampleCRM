@@ -1,0 +1,154 @@
+﻿@model SampleCRM.Models.ViewModels.MaintenanceFeeBillListItemViewModel
+
+@{
+    ViewData["Title"] = "請求情報詳細";
+}
+
+<h1>請求情報詳細</h1>
+
+<div>
+    <hr />
+    <dl class="row table-striped">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BillCode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BillCode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsBillingMainDepartment)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsBillingMainDepartment)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BillingDepartmentName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BillingDepartmentName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BillingDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BillingDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BillingAmount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BillingAmount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalDepositAmount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TotalDepositAmount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BankAccountName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BankAccountName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BillingNote)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.TextAreaFor(model => model.BillingNote, new { rows = "5", cols = "80", @readonly = "true" })
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BillingSpecialNote)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.TextAreaFor(model => model.BillingSpecialNote, new { rows = "5", cols = "80", @readonly = "true" })
+        </dd>
+    </dl>
+
+    <div style="text-align:right">
+        <a asp-action="Edit" asp-route-id="@Model?.BillCode">請求情報修正</a> |
+        <a asp-controller="MaintenanceFeeBill" asp-action="Details" asp-route-id="@Model.BillCode">契約情報詳細へ戻る</a>
+    </div>
+
+    <br>
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#Maintenace">
+                保守
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#Clearance">
+                消込
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <!-- ここから保守料情報一覧 -->
+        <div class="tab-pane fade" id="Maintenace" role="tabpanel">
+            <br>
+            @* @await Html.PartialAsync("_MaintenanceFeeListPartial", Model.MaintenanceFees) *@
+        </div>
+
+        <!-- ここから消込情報一覧 -->
+        <div class="tab-pane fade" id="Clearance" role="tabpanel">
+            <br>
+            <h3>消込情報一覧</h3>
+            <p>
+                <a asp-controller="MaintenanceFeeClearance" asp-action="Create" asp-route-id="@Model.BillCode">消込情報作成</a>
+            </p>
+            <div>
+                <hr />
+                @if (!Model.MaintenanceFeeClearances.Any() || Model.MaintenanceFeeClearances.First() is not { } firstClearance)
+                {
+                    <text><b>消込情報は未登録です。</b></text>
+                }
+                else
+                {
+                    <table class="table" style="vertical-align:middle">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(_ => firstClearance.ClearanceDepositDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(_ => firstClearance.ClearanceAmount)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(_ => firstClearance.ClearanceInputDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(_ => firstClearance.TransferNumber)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.MaintenanceFeeClearances)
+                            {
+                                <tr>
+                                    <td>@item.ClearanceDepositDate</td>
+                                    <td>@item.ClearanceAmount</td>
+                                    <td>@item.ClearanceInputDate</td>
+                                    <td>@item.TransferNumber</td>
+                                    <td>
+                                        <div>
+                                            <a asp-controller="MaintenanceFeeClearance" asp-action="Edit" asp-route-id="@item.ClearanceCode">編集</a>
+                                        </div>
+                                        <div>
+                                            <a asp-controller="MaintenanceFeeClearance" asp-action="Delete" asp-route-id="@item.ClearanceCode">削除</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+<br />

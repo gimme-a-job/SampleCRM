@@ -1,0 +1,42 @@
+﻿@model SampleCRM.Models.ViewModels.SalesCompany
+
+@{
+    ViewData["Title"] = "営業会社追加";
+}
+
+<h1>営業会社追加</h1>
+
+<div class="form-group">
+    <label class="control-label"><label class="control-label"><span style="color:#ff0000;">※</span></label>は必須入力項目です。</label>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group col-md-8">
+                <label asp-for="CompanyName" class="control-label"></label><label class="control-label"><span style="color:#ff0000;">※</span></label>
+                <input asp-for="CompanyName" class="form-control" />
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-8">
+                <label asp-for="PhoneticName" class="control-label"></label>
+                <input asp-for="PhoneticName" class="form-control" />
+                <span asp-validation-for="PhoneticName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note" class="control-label"></label>
+                <textarea asp-for="Note" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="追加" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">営業会社一覧へ戻る</a>
+</div>
+

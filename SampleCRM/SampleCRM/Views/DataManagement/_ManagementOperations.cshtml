@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using static SampleCRM.Identity.AuthorizationPolicies
+@using IdentityUser = SampleCRM.Models.TableModels.IdentityUser;
+
+@inject IAuthorizationService AuthorizationService
+@inject SignInManager<IdentityUser> SignInManager
+
+<h2>データの取得や更新</h2>
+<ul>
+    @if ((await AuthorizationService.AuthorizeAsync(User, nameof(GlobalAdministratorOnlyPolicy))).Succeeded)
+    {
+        <li>
+            <a asp-action="InsertMasters">InsertMasters実行</a>
+        </li>
+        <li>
+            <a asp-action="ResetSchema">ResetSchema実行（全データが消えます）</a>
+        </li>
+    }
+
+</ul>
+
+@if ((await AuthorizationService.AuthorizeAsync(User, nameof(GlobalAdministratorOnlyPolicy))).Succeeded)
+{
+    <hr />
+
+    <h2>マスターデータの管理</h2>
+    <ul>
+        <li>
+            <a asp-controller="LicenseDistricts" asp-action="Index">事業区分・ライセンス地域一覧</a>
+        </li>
+    </ul>
+}

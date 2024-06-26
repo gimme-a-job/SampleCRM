@@ -1,0 +1,73 @@
+﻿@model SampleCRM.Models.ViewModels.SalesDepartment
+
+@{
+    ViewData["Title"] = "営業部署削除";
+}
+
+<h1>営業部署削除</h1>
+<h5>
+    <ruby>
+        @Model.CompanyName
+        <rt>@Model.CompanyPhoneticName</rt>
+    </ruby>
+</h5>
+<br />
+<b>この部署を削除しますか？</b>
+<div>※注意：部署に所属する営業担当がいる場合は、先にそちらを削除して下さい。</div>
+<div>　　　　また、削除後は復旧できません。</div>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+        <dd class = "col-sm-10">
+            <ruby>
+                @Html.DisplayFor(model => model.DepartmentName)
+                <rt>@Html.DisplayFor(model => model.PhoneticName)</rt>
+            </ruby>
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsMainDepartment)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsMainDepartment)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PostalCode)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TelNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TelNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FaxNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FaxNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CompanyCode" />
+        <input type="submit" value="削除" class="btn btn-danger" /> |
+        <a asp-controller="SalesCompany" asp-action="Details" asp-route-id="@Model.CompanyCode">営業会社詳細(部署一覧)へ戻る</a>
+    </form>
+</div>

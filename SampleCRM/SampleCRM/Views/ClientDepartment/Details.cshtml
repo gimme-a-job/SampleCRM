@@ -1,0 +1,115 @@
+﻿@model SampleCRM.Models.ViewModels.ClientDepartmentViewModel
+
+@{
+    ViewData["Title"] = "部署詳細";
+}
+
+<h1>部署詳細</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <!-- 会社情報 -->
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+        <dd class="col-sm-10">
+            <ruby>
+                @Html.DisplayFor(model => model.CompanyName)
+                <rt>@Html.DisplayFor(model => model.CompanyPhoneticName)</rt>
+            </ruby>
+        </dd>
+
+        <!-- 部署情報 -->
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </dt>
+        <dd class="col-sm-10">
+            <ruby>
+                @Html.DisplayFor(model => model.DepartmentName)
+                <rt>@Html.DisplayFor(model => model.DepartmentPhoneticName)</rt>
+            </ruby>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsMainDepartment)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsMainDepartment)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DepartmentPostalCode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DepartmentPostalCode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DepartmentAddress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DepartmentAddress)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DepartmentTelNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DepartmentTelNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DepartmentFaxNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DepartmentFaxNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DepartmentEmail)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DepartmentEmail)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.TextAreaFor(model => model.Note, new { rows = "5", cols = "80", @readonly = "true" })
+        </dd>
+
+        <!-- 担当者情報 -->
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EmployeeName)
+        </dt>
+        <dd class="col-sm-10">
+            <ruby>
+                @Html.DisplayFor(model => model.EmployeeName)
+                <rt>@Html.DisplayFor(model => model.EmployeePhoneticName)</rt>
+            </ruby>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EmployeePosition)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EmployeePosition)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EmployeeTelNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EmployeeTelNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EmployeeEmail)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EmployeeEmail)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EmployeeSNS)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EmployeeSNS)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.DepartmentCode">修正</a> |
+    <a asp-controller="ClientCompany" asp-action="Details" asp-route-id="@Model?.CompanyCode">契約会社一覧へ</a>
+</div>

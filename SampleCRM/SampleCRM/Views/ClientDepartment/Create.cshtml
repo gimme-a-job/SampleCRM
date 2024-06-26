@@ -1,0 +1,115 @@
+﻿@model SampleCRM.Models.ViewModels.ClientDepartmentViewModel
+
+@{
+    ViewData["Title"] = "契約部署追加";
+}
+
+<h1>部署追加</h1>
+<h5>@Model.CompanyName</h5>
+<div class="form-group">
+    <label class="control-label"><label class="control-label"><span style="color:#ff0000;">※</span></label>は必須入力項目です。</label>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Create" class="h-adr">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CompanyCode" />
+            <input type="hidden" asp-for="EditableMainDepartment" />
+            <div class="form-group form-check">
+                @if (Model.EditableMainDepartment)
+                {
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsMainDepartment" />@Html.DisplayNameFor(model => model.IsMainDepartment)
+                    </label>
+                }
+                else
+                {
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsMainDepartment" disabled="disabled" />既に代表部署が登録されているので設定できません
+                    </label>
+                }
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentName" class="control-label"></label><label class="control-label"><span style="color:#ff0000;">※</span></label>
+                <input asp-for="DepartmentName" class="form-control" />
+                <span asp-validation-for="DepartmentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentPhoneticName" class="control-label"></label>
+                <input asp-for="DepartmentPhoneticName" class="form-control" />
+                <span asp-validation-for="DepartmentPhoneticName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentPostalCode" class="control-label"></label>
+                <input type="hidden" class="p-country-name" value="Japan" />
+                <input asp-for="DepartmentPostalCode" class="form-control p-postal-code" />
+                <button type="button" class="btn-secondary postal-search">郵便番号から住所を検索する</button>
+                <span asp-validation-for="DepartmentPostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentAddress" class="control-label"></label>
+                <input asp-for="DepartmentAddress" class="form-control p-region p-locality p-street-address p-extended-address" />
+                <span asp-validation-for="DepartmentAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentTelNumber" class="control-label"></label>
+                <input asp-for="DepartmentTelNumber" class="form-control" />
+                <span asp-validation-for="DepartmentTelNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentFaxNumber" class="control-label"></label>
+                <input asp-for="DepartmentFaxNumber" class="form-control" />
+                <span asp-validation-for="DepartmentFaxNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentEmail" class="control-label"></label>
+                <input asp-for="DepartmentEmail" class="form-control" />
+                <span asp-validation-for="DepartmentEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note" class="control-label"></label>
+                <textarea asp-for="Note" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeName" class="control-label"></label><label class="control-label"><span style="color:#ff0000;">※</span></label>
+                <input asp-for="EmployeeName" class="form-control" />
+                <span asp-validation-for="EmployeeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeePhoneticName" class="control-label"></label>
+                <input asp-for="EmployeePhoneticName" class="form-control" />
+                <span asp-validation-for="EmployeePhoneticName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeePosition" class="control-label"></label>
+                <input asp-for="EmployeePosition" class="form-control" />
+                <span asp-validation-for="EmployeePosition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeTelNumber" class="control-label"></label>
+                <input asp-for="EmployeeTelNumber" class="form-control" />
+                <span asp-validation-for="EmployeeTelNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeEmail" class="control-label"></label>
+                <input asp-for="EmployeeEmail" class="form-control" />
+                <span asp-validation-for="EmployeeEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeSNS" class="control-label"></label>
+                <input asp-for="EmployeeSNS" class="form-control" />
+                <span asp-validation-for="EmployeeSNS" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="追加" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="ClientCompany" asp-action="Details" asp-route-id="@Model.CompanyCode">契約会社詳細へ</a>
+</div>
+

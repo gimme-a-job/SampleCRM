@@ -1,0 +1,185 @@
+﻿@using SampleCRM.Common;
+@using SampleCRM.Contexts;
+@using SampleCRM.Models.Enums;
+@using SampleCRM.Models.TableModels;
+
+@{
+    var pagedCompanies = (IPagedList)ViewBag.Companies;
+}
+
+@using X.PagedList.Mvc.Core; @*import this so we get our HTML Helper*@
+@using X.PagedList;
+@*import this so we can cast our list to IPagedList (only necessary because ViewBag is dynamic)*@
+@using X.PagedList.Mvc.Core.Fluent
+
+@model IEnumerable<SampleCRM.Models.ViewModels.ClientCompanyCommonViewModel>
+
+@{
+    ViewData["Title"] = "顧客会社一覧";
+}
+
+
+@inject SampleCRMContext SampleCRMContext
+
+<div>
+    <div>
+        <h1>顧客会社一覧</h1>
+
+        <p>
+            <a asp-action="Create">顧客会社追加</a>
+        </p>
+
+        @{
+            var request = Context.Request;
+
+            var searchWord = request.Query.SingleOrDefault(x => x.Key.ToLower() == "searchWord".ToLower()).Value;
+            var selectedSearchMethod = CookieUtility.GetEnumValueFromCookie<SearchMethod>(request);
+            var selectedDisplayCount = CookieUtility.GetEnumValueFromCookie<DisplayCountPerPage>(request);
+            var selectedCompanyCodeOrder = CookieUtility.GetEnumValueFromCookie<CompanyCodeOrder>(request);
+            var selectedCompanyStatus = CookieUtility.GetValueFromCookie(request, $"Selected{nameof(CompanyStatus)}");
+        }
+
+        @(
+            Html.Pager(pagedCompanies)
+            .Url(page => Url.Action("Index", new { page, searchword = searchWord }))
+            .Build()
+            )
+    </div>
+
+    <div>
+        <form asp-action="Search" method="post">
+            <input type="text" name="searchWord" placeholder="検索キーワード" value="@searchWord">
+            @* <select asp-items="new SelectList(EnumUtility.GetListFromEnum<SearchMethod>(), selectedSearchMethod)"> *@
+            <select name="searchMethod" asp-items="EnumUtility.GetSelectListFromEnum<SearchMethod>(selectedSearchMethod)">
+            </select>
+            <button type="submit">検索</button>
+        </form>
+    </div>
+</div>
+
+<table class="table align-middle">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>
+                表示件数
+                <form asp-action="ChangeDisplayCount" method="post" id="displayCountForm">
+                    <input type="hidden" name="searchWord" value="@searchWord">
+                    <select name="displayCount" asp-items="EnumUtility.GetSelectListFromEnum<DisplayCountPerPage>(selectedDisplayCount)" onchange="submitForm('displayCountForm')">
+                    </select>
+                </form>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MainDepartmentAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MainDepartmentPhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SystemKinds)
+            </th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>
+                <form asp-action="SwitchCompanyCodeOrder" method="post" id="companyCodeOrderForm">
+                    <input type="hidden" name="searchWord" value="@searchWord">
+                    <select name="companyCodeOrder" asp-items="EnumUtility.GetSelectListFromEnum<CompanyCodeOrder>(selectedCompanyCodeOrder)" onchange="submitForm('companyCodeOrderForm')">
+                    </select>
+                </form>
+            </th>
+            <th></th>
+            <th></th>
+            <th>
+                <form asp-action="FilterCompanyStatus" method="post" id="companyStatusForm">
+                    <input type="hidden" name="searchWord" value="@searchWord">
+                    <select name="selectedCompanyStatusCode"
+                            asp-for="@selectedCompanyStatus"
+                            asp-items="new SelectList(SampleCRMContext.CompanyStatuses, nameof(CompanyStatus.CompanyStatusCode), nameof(CompanyStatus.CompanyStatusName) )"
+                            onchange="submitForm('companyStatusForm')">
+                        <option value="@string.Empty">全て</option>
+                    </select>
+                </form>
+            </th>
+            <th>
+
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (!Model.Any())
+        {
+            <br>
+            <h3><b>条件に該当する会社はありませんでした。</b></h3>
+        }
+        else
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(_ => item.CompanyCode)
+                    </td>
+                    <td>
+                        <ruby>
+                            @Html.DisplayFor(_ => item.CompanyName)
+                            <rt>
+                                @Html.DisplayFor(_ => item.PhoneticName)
+                            </rt>
+                        </ruby>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(_ => item.CompanyStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(_ => item.MainDepartmentAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(_ => item.MainDepartmentPhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(_ => item.SystemKinds)
+                    </td>
+                    <td>
+                        <div>
+                            <a asp-action="Details" asp-route-id="@item.CompanyCode">詳細</a>
+                        </div>
+                        <div>
+                            <a asp-action="Edit" asp-route-id="@item.CompanyCode">修正</a>
+                        </div>
+                        <div>
+                            <a asp-action="Delete" asp-route-id="@item.CompanyCode">削除</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+
+</table>
+
+@(Html.Pager(pagedCompanies)
+        .Url(page => Url.Action("Index", new { page, searchword = searchWord }))
+        .Build())

@@ -1,0 +1,71 @@
+﻿@using SampleCRM.Models.ViewModels;
+
+@model OrderListViewModel
+
+<h3>発注一覧</h3>
+<p>
+    <a asp-controller="Order" asp-action="Create" asp-route-id="@Model.CompanyCode">発注作成</a>
+</p>
+<div>
+    <hr />
+    @if (!Model.Orders.Any() || Model.Orders.First() is not { } firstOrder)
+    {
+        <text><b>発注がありません</b></text>
+    }
+    else
+    {
+        <table class="table" style="vertical-align:middle">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstOrder.OrderDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstOrder.DeliveryDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstOrder.DeliveryStatusName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstOrder.IsNewOrderCompany)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstOrder.IsPayTogether)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstOrder.ClientEmployeeName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstOrder.SalesEmployeeName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Orders)
+                {
+                    <tr>
+                        <td>@item.OrderDate</td>
+                        <td>@item.DeliveryDate</td>
+                        <td>@item.DeliveryStatusName</td>
+                        <td>@item.IsNewOrderCompany</td>
+                        <td>@item.IsPayTogether</td>
+                        <td>@item.ClientEmployeeName</td>
+                        <td>@item.SalesEmployeeName</td>
+                        <td>
+                            <div>
+                                <a asp-controller="Order" asp-action="Details" asp-route-id="@item.OrderCode">詳細</a>
+                            </div>
+                            <div>
+                                <a asp-controller="Order" asp-action="Edit" asp-route-id="@item.OrderCode">編集</a>
+                            </div>
+                            <div>
+                                <a asp-controller="Order" asp-action="Delete" asp-route-id="@item.OrderCode">削除</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

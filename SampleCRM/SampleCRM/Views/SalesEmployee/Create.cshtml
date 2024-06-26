@@ -1,0 +1,59 @@
+﻿@model SampleCRM.Models.ViewModels.SalesEmployee
+
+@{
+    ViewData["Title"] = "営業担当者追加";
+}
+
+<h1>営業担当者追加</h1>
+
+<h5>@Model.CompanyName &emsp; @Model.DepartmentName</h5>
+<div class="form-group">
+    <label class="control-label"><label class="control-label"><span style="color:#ff0000;">※</span></label>は必須入力項目です。</label>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EmployeeName" class="control-label"></label><label class="control-label"><span style="color:#ff0000;">※</span></label>
+                <input asp-for="EmployeeName" class="form-control" />
+                <span asp-validation-for="EmployeeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneticName" class="control-label"></label>
+                <input asp-for="PhoneticName" class="form-control" />
+                <span asp-validation-for="PhoneticName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Position" class="control-label"></label>
+                <input asp-for="Position" class="form-control" />
+                <span asp-validation-for="Position" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CellPhoneNumber" class="control-label"></label>
+                <input asp-for="CellPhoneNumber" class="form-control" />
+                <span asp-validation-for="CellPhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SNS" class="control-label"></label>
+                <input asp-for="SNS" class="form-control" />
+                <span asp-validation-for="SNS" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="DepartmentCode" />
+            <div class="form-group">
+                <input type="submit" value="登録" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="SalesDepartment" asp-action="Details" asp-route-id="@Model.DepartmentCode">営業部署詳細(営業担当一覧)に戻る</a>
+</div>
+

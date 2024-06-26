@@ -1,0 +1,35 @@
+﻿@using SampleCRM.Models.TableModels
+
+@model IdentityUser
+
+@{
+    ViewData["Title"] = "ユーザー削除";
+}
+
+<h1>ユーザー削除</h1>
+
+<h3>下記ユーザーを削除してもよろしいですか？</h3>
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="削除" class="btn btn-danger" /> |
+        <a asp-action="Index">ユーザー一覧へ戻る</a>
+    </form>
+</div>

@@ -1,0 +1,57 @@
+﻿@model SampleCRM.Models.ViewModels.ClientCompanyCommonViewModel
+
+@{
+    ViewData["Title"] = "顧客会社削除";
+}
+
+<h1>顧客会社削除</h1>
+<br />
+<b>この会社を削除しますか？</b>
+<div>※注意：部署やライセンス情報を登録している場合は、先にそちらを削除してください。</div>
+<div>　　　　また、削除後は復旧できません。</div>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyCode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyCode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+        <dd class="col-sm-10">
+            <ruby>
+                @Html.DisplayFor(model => model.CompanyName)
+                <rt>
+                    @Html.DisplayFor(model => model.PhoneticName)
+                </rt>
+            </ruby>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyStatus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BusinessEvaluationPermitNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BusinessEvaluationPermitNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.TextAreaFor(model => model.Note, new { @class = "form-control", rows = "5", @readonly = "readonly" })
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CompanyCode" />
+        <input type="submit" value="削除" class="btn btn-danger" /> |
+        <a asp-action="Index">顧客会社一覧に戻る</a>
+    </form>
+</div>

@@ -1,0 +1,109 @@
+﻿@using SampleCRM.Controllers;
+@using SampleCRM.Models.ViewModels;
+
+@model ClientCompanyCommonViewModel
+
+@{
+    ViewData["Title"] = "契約会社詳細";
+}
+
+<h1>顧客会社詳細</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyCode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyCode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+        <dd class="col-sm-10">
+            <ruby>
+                @Html.DisplayFor(model => model.CompanyName)
+                <rt>
+                    @Html.DisplayFor(model => model.PhoneticName)
+                </rt>
+            </ruby>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyStatus)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BusinessEvaluationPermitNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BusinessEvaluationPermitNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+        <dd class="col-sm-5">
+            @Html.TextAreaFor(model => model.Note, new { rows = "5", cols = "80", @readonly = "true" })
+        </dd>
+    </dl>
+
+    <div style="text-align:right">
+        <a asp-action="Edit" asp-route-id="@Model?.CompanyCode">修正</a> |
+        <a asp-action="Index">顧客会社一覧へ戻る</a>
+    </div>
+
+    <br>
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button type="button" class="nav-link active" data-bs-toggle="tab" data-bs-target="#ClientDepartment">
+                部署
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#Order">
+                発注
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#Contract">
+                契約
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#Maintenace">
+                保守料
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <!-- ここから部署一覧 -->
+        <div class="tab-pane fade show active" id="ClientDepartment" role="tabpanel">
+            <br>
+            @await Html.PartialAsync("_DepartmentListPartial", Model!.DepartmentList)
+        </div>
+
+        <!-- ここから発注一覧 -->
+        <div class="tab-pane fade" id="Order" role="tabpanel">
+            <br>
+            @await Html.PartialAsync("_OrderListPartial", Model.OrderList)
+        </div>
+
+        <!-- ここから契約情報一覧 -->
+        <div class="tab-pane fade" id="Contract" role="tabpanel">
+            <br>
+            @await Html.PartialAsync("_ContractListPartial", Model.ContractList)
+        </div>
+
+        <!-- ここから保守料情報一覧 -->
+        <div class="tab-pane fade" id="Maintenace" role="tabpanel">
+            <br>
+            @await Html.PartialAsync("_MaintenanceFeeBillListPartial", Model.MaintenanceFeeBillList)
+        </div>
+    </div>
+
+</div>
+<br />

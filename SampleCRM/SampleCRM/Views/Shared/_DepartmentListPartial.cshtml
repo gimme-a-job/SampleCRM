@@ -1,0 +1,84 @@
+﻿@using SampleCRM.Models.ViewModels;
+
+@model DepartmentListViewModel
+
+<h3>部署一覧</h3>
+<p>
+    <a asp-controller="ClientDepartment" asp-action="Create" asp-route-id="@Model.CompanyCode">部署追加</a>
+</p>
+<div>
+    <hr />
+    @if (!Model.Departments.Any() || Model.Departments.First() is not { } firstDepartment)
+    {
+        <text><b>部署が登録されていません</b></text>
+    }
+    else
+    {
+        <table class="table" style="vertical-align:middle">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstDepartment.IsMain)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstDepartment.DepartmentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstDepartment.EmployeeName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstDepartment.DepartmentPostalCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstDepartment.DepartmentAddress)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstDepartment.DepartmentPhoneNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(_ => firstDepartment.DepartmentEmail)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Departments)
+                {
+                    <tr data-item-code="@item.DepartmentCode" data-item-displayorder="@item.DisplayOrder">
+                        <td>
+                            @Html.DisplayFor(_ => item.IsMain)
+                        </td>
+                        <td>
+                            <ruby>
+                                @item.DepartmentName
+                                <rt>@item.DepartmentNameKana</rt>
+                            </ruby>
+                        </td>
+                        <td>
+                            <ruby>
+                                @item.EmployeeName
+                                <rt>@item.EmployeeNameKana</rt>
+                            </ruby>
+
+                        </td>
+                        <td>@item.DepartmentPostalCode</td>
+                        <td>@item.DepartmentAddress</td>
+                        <td>@item.DepartmentPhoneNumber</td>
+                        <td>@item.DepartmentEmail</td>
+                        <td>
+                            <div>
+                                <a asp-controller="ClientDepartment" asp-action="Details" asp-route-id="@item.DepartmentCode">詳細</a>
+                            </div>
+                            <div>
+                                <a asp-controller="ClientDepartment" asp-action="Edit" asp-route-id="@item.DepartmentCode">編集</a>
+                            </div>
+                            <div>
+                                <a asp-controller="ClientDepartment" asp-action="Delete" asp-route-id="@item.DepartmentCode">削除</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

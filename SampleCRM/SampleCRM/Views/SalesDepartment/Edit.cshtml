@@ -1,0 +1,87 @@
+﻿@model SampleCRM.Models.ViewModels.SalesDepartment
+
+@{
+    ViewData["Title"] = "営業部署修正";
+}
+
+<h1>営業部署修正</h1>
+<h5>
+    <ruby>
+        @Model.CompanyName
+        <rt>@Model.CompanyPhoneticName</rt>
+    </ruby>
+</h5>
+<div class="form-group">
+    <label class="control-label"><label class="control-label"><span style="color:#ff0000;">※</span></label>は必須入力項目です。</label>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" class="h-adr">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group form-check">
+                @if(Model.EditableMainDepartment)
+                {
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsMainDepartment" /> @Html.DisplayNameFor(model => model.IsMainDepartment)
+                    </label>
+                }
+                else
+                {
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsMainDepartment" disabled="disabled" />既に代表部署が登録されているので設定出来ません
+                    </label>
+                }
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentName" class="control-label"></label><label class="control-label"><span style="color:#ff0000;">※</span></label>
+                <input asp-for="DepartmentName" class="form-control" />
+                <span asp-validation-for="DepartmentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneticName" class="control-label"></label>
+                <input asp-for="PhoneticName" class="form-control" />
+                <span asp-validation-for="PhoneticName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostalCode" class="control-label"></label>
+                <input asp-for="PostalCode" class="form-control p-postal-code" />
+                <input type="hidden" class="p-country-name" value="Japan" />
+                <button type="button" class="btn-secondary postal-search">郵便番号から住所を検索する</button>
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control p-region p-locality p-street-address p-extended-address" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TelNumber" class="control-label"></label>
+                <input asp-for="TelNumber" class="form-control" />
+                <span asp-validation-for="TelNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FaxNumber" class="control-label"></label>
+                <input asp-for="FaxNumber" class="form-control" />
+                <span asp-validation-for="FaxNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="CompanyCode" />
+            <input type="hidden" asp-for="CompanyName" />
+            <input type="hidden" asp-for="CompanyPhoneticName" />
+            <input type="hidden" asp-for="DepartmentCode" />
+            <div class="form-group">
+                <input type="submit" value="更新" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="SalesCompany" asp-action="Details" asp-route-id="@Model.CompanyCode">営業会社詳細(部署一覧)へ戻る</a>
+</div>
+

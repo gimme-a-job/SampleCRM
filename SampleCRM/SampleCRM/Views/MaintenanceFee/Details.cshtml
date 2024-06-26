@@ -1,0 +1,47 @@
+﻿@model SampleCRM.Models.ViewModels.MaintenanceFeeListItemViewModel
+
+@{
+    ViewData["Title"] = "保守料情報詳細";
+}
+
+<h1>保守料情報詳細</h1>
+
+<div>
+    <hr />
+    <dl class="row table-striped">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaintenanceFeeCode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MaintenanceFeeCode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaintenanceFeePrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MaintenanceFeePrice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaintenanceStartDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MaintenanceStartDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaintenanceEndDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MaintenanceEndDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.TextAreaFor(model => model.Note, new { rows = "5", cols = "80", @readonly = "true" })
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.MaintenanceFeeCode">保守料情報修正</a> |
+    <a asp-controller="MaintenanceFee" asp-action="Details" asp-route-id="@Model.MaintenanceFeeCode">契約情報詳細へ戻る</a>
+</div>

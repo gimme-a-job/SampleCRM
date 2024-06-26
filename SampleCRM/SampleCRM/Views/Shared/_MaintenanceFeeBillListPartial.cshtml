@@ -1,0 +1,155 @@
+﻿@using SampleCRM.Models.ViewModels;
+
+@model IEnumerable<MaintenanceFeeBillListItemViewModel>
+
+<h3>保守料情報一覧</h3>
+
+<div>
+    <hr />
+    @if (!Model.Any() || Model.First() is not { } firstMaintenanceFeeBill)
+    {
+        <text><b>保守料情報が登録されていません</b></text>
+    }
+    else
+    {
+        @foreach (var item in Model.Select((Value, Index) => new { Value, Index }))
+        {
+            <div>
+
+                <h4>保守料情報 @(item.Index + 1)</h4>
+                <table class="table" style="vertical-align:middle">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(_ => item.Value.MaintenanceFees.First().MaintenanceFeePrice)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(_ => item.Value.MaintenanceFees.First().MaintenanceStartDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(_ => item.Value.MaintenanceFees.First().MaintenanceEndDate)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var maintenanceFee in item.Value.MaintenanceFees)
+                        {
+                            <tr>
+                                <td>@maintenanceFee.MaintenanceFeePrice</td>
+                                <td>@maintenanceFee.MaintenanceStartDate</td>
+                                <td>@maintenanceFee.MaintenanceEndDate</td>
+                                <td>
+                                    <div>
+                                        <a asp-controller="MaintenanceFee" asp-action="Details" asp-route-id="@maintenanceFee.MaintenanceFeeCode">詳細</a>
+                                    </div>
+                                    <div>
+                                        <a asp-controller="MaintenanceFee" asp-action="Edit" asp-route-id="@maintenanceFee.MaintenanceFeeCode">修正</a>
+                                    </div>
+                                    <div>
+                                        <a asp-controller="MaintenanceFee" asp-action="Delete" asp-route-id="@maintenanceFee.MaintenanceFeeCode">削除</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <h4>請求情報 @(item.Index + 1)</h4>
+                @if (item.Value is not { } maintenanceFeeBill || maintenanceFeeBill.BillingDate is null)
+                {
+                    <text><b>請求情報が未設定です</b></text>
+                }
+                else
+                {
+                    <table class="table" style="vertical-align:middle">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(_ => firstMaintenanceFeeBill.BillingDepartmentName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(_ => firstMaintenanceFeeBill.BillingDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(_ => firstMaintenanceFeeBill.BillingAmount)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(_ => firstMaintenanceFeeBill.TotalDepositAmount)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(_ => firstMaintenanceFeeBill.BillingDifferenceAmount)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>@maintenanceFeeBill.BillingDepartmentName</td>
+                                <td>@maintenanceFeeBill.BillingDate</td>
+                                <td>@maintenanceFeeBill.BillingAmount</td>
+                                <td>@maintenanceFeeBill.TotalDepositAmount</td>
+                                <td class="@(maintenanceFeeBill.BillingDifferenceAmount < 0 ? "negative" : "")">@maintenanceFeeBill.BillingDifferenceAmount</td>
+                                <td>
+                                    <div>
+                                        <a asp-controller="MaintenanceFeeBill" asp-action="Details" asp-route-id="@maintenanceFeeBill.BillCode">詳細</a>
+                                    </div>
+                                    <div>
+                                        <a asp-controller="MaintenanceFeeBill" asp-action="Edit" asp-route-id="@maintenanceFeeBill.BillCode">修正</a>
+                                    </div>
+                                    <div>
+                                        <a asp-controller="MaintenanceFeeBill" asp-action="Delete" asp-route-id="@maintenanceFeeBill.BillCode">削除</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+
+                <h4>消込情報 @(item.Index + 1)</h4>
+                @if (!item.Value.MaintenanceFeeClearances.Any() || item.Value.MaintenanceFeeClearances.First() is not { } firstMaintenanceFeeClearance)
+                {
+                    <text><b>消込情報が登録されていません</b></text>
+                }
+                else
+                {
+                    <table class="table" style="vertical-align:middle">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(_ => firstMaintenanceFeeClearance.ClearanceDepositDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(_ => firstMaintenanceFeeClearance.ClearanceAmount)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var maintenanceFeeClearance in item.Value.MaintenanceFeeClearances)
+                            {
+                                <tr>
+                                    <td>@maintenanceFeeClearance.ClearanceDepositDate</td>
+                                    <td>@maintenanceFeeClearance.ClearanceAmount</td>
+                                    <td>
+                                        <div>
+                                            <a asp-controller="MaintenanceFeeClearance" asp-action="Details" asp-route-id="@maintenanceFeeClearance.ClearanceCode">詳細</a>
+                                        </div>
+                                        <div>
+                                            <a asp-controller="MaintenanceFeeClearance" asp-action="Edit" asp-route-id="@maintenanceFeeClearance.ClearanceCode">修正</a>
+                                        </div>
+                                        <div>
+                                            <a asp-controller="MaintenanceFeeClearance" asp-action="Delete" asp-route-id="@maintenanceFeeClearance.ClearanceCode">削除</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+        }
+    }
+</div>

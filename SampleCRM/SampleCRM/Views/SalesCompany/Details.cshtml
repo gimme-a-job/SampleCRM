@@ -1,0 +1,110 @@
+﻿@model SampleCRM.Models.ViewModels.SalesCompany
+
+@{
+    ViewData["Title"] = "営業会社詳細";
+}
+
+<h1>営業会社詳細</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+        <dd class = "col-sm-10">
+            <ruby>
+                @Html.DisplayFor(model => model.CompanyName)
+                <rt>
+                    @Html.DisplayFor(model => model.PhoneticName)
+                </rt>
+            </ruby>
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.TextAreaFor(model => model.Note, new { rows = "5", cols = "80", @readonly = "true"})
+        </dd>
+    </dl>
+
+    <!-- ここから部署一覧 -->
+    <h3>部署一覧</h3>
+    <p>
+        <a asp-controller="SalesDepartment" asp-action="Create" asp-route-id="@Model.CompanyCode">部署追加</a>
+    </p>
+    <div>
+        <hr />
+        @if(!Model.Departments.Any())
+        {
+            <text><b>部署が登録されていません</b></text>
+        }
+        else
+        {
+            <table class="table" style="vertical-align:middle">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Departments[0].IsMainDepartment)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Departments[0].DepartmentName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Departments[0].PostalCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Departments[0].Address)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Departments[0].TelNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Departments[0].Email)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var department in Model.Departments)
+                    {
+                        <tr>
+                            <td>
+                                @if (department.IsMainDepartment)
+                                {
+                                    <text>○</text>
+                                }
+                            </td>
+                            <td>
+                                <ruby>
+                                    @Html.DisplayFor(modelItem => department.DepartmentName)
+                                    <rt>@Html.DisplayFor(modelItem => department.PhoneticName)</rt>
+                                </ruby>
+                            </td>
+                            <td>@department.PostalCode</td>
+                            <td>@department.Address</td>
+                            <td>@department.TelNumber</td>
+                            <td>@department.Email</td>
+                            <td>
+                                <div>
+                                    <a asp-controller="SalesDepartment" asp-action="Details" asp-route-id="@department.DepartmentCode">詳細</a>
+                                </div>
+                                <div>
+                                    <a asp-controller="SalesDepartment" asp-action="Edit" asp-route-id="@department.DepartmentCode">修正</a>
+                                </div>
+                                <div>
+                                    <a asp-controller="SalesDepartment" asp-action="Delete" asp-route-id="@department.DepartmentCode">削除</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+<br />
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.CompanyCode">修正</a> |
+    <a asp-action="Index">営業会社一覧に戻る</a>
+</div>

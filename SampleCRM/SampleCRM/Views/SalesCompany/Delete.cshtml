@@ -1,0 +1,40 @@
+﻿@model SampleCRM.Models.ViewModels.SalesCompany
+
+@{
+    ViewData[ "Title" ] = "営業会社削除";
+}
+
+<h1>営業会社削除</h1>
+
+<br />
+<b>この会社を削除しますか？</b>
+<div>※注意：部署やライセンス情報を登録している場合は、先にそちらを削除してください。</div>
+<div>　　　　また、削除後は復旧できません。</div>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+        <dd class="col-sm-10">
+            <ruby>
+                @Html.DisplayFor(model => model.CompanyName)
+                <rt>
+                    @Html.DisplayFor(model => model.PhoneticName)
+                </rt>
+            </ruby>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.TextAreaFor(model => model.Note, new { rows = "5", cols = "80", @readonly = "true"})
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CompanyCode" />
+        <input type="submit" value="削除" class="btn btn-danger" /> |
+        <a asp-action="Index">営業会社一覧へ戻る</a>
+    </form>
+</div>

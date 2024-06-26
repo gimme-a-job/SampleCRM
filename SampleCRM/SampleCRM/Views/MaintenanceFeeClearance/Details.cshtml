@@ -1,0 +1,47 @@
+﻿@model SampleCRM.Models.ViewModels.MaintenanceFeeClearanceListItemViewModel
+
+@{
+    ViewData["Title"] = "消込情報詳細";
+}
+
+<h1>消込情報詳細</h1>
+
+<div>
+    <hr />
+    <dl class="row table-striped">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClearanceCode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClearanceCode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClearanceDepositDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClearanceDepositDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClearanceAmount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClearanceAmount)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClearanceInputDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClearanceInputDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TransferNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TransferNumber)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ClearanceCode">消込情報修正</a> |
+    <a asp-controller="MaintenanceFeeClearance" asp-action="Details" asp-route-id="@Model.ClearanceCode">契約情報詳細へ戻る</a>
+</div>

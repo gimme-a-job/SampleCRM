@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SampleCRM.Models.ViewModels.SalesCompany>
+
+@{
+    ViewData["Title"] = "営業会社一覧";
+}
+
+<h1>営業会社一覧</h1>
+
+<p>
+    <a asp-action="Create">営業会社追加</a>
+</p>
+<table class="table" style="vertical-align:middle">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostalCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <ruby>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                    <rt>
+                        @Html.DisplayFor(modelItem => item.PhoneticName)
+                    </rt>
+                </ruby>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelNumber)
+            </td>
+            <td>
+                @Html.TextAreaFor(modelItem => item.Note, new { cols = "30", @readonly = "readonly"})
+            </td>
+            <td>
+                <div><a asp-action="Details" asp-route-id="@item.CompanyCode">詳細(部署一覧)</a></div>
+                <div><a asp-action="Edit" asp-route-id="@item.CompanyCode">修正</a></div>
+                <div><a asp-action="Delete" asp-route-id="@item.CompanyCode">削除</a></div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

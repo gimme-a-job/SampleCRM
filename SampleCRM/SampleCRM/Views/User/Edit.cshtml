@@ -1,0 +1,50 @@
+﻿@using SampleCRM.Identity
+@using SampleCRM.Models.ViewModels
+
+@model UserEditViewModel
+
+@{
+    ViewData["Title"] = "ユーザー情報修正";
+}
+
+<h1>ユーザー情報修正</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div>
+                <fieldset>
+                    <legend>ロール選択</legend>
+                    <select asp-for="SelectedRole" asp-items="new SelectList(Model.Roles)">
+                        <option value="@RoleNames.NotAssigned">@RoleNames.NotAssigned</option>
+                    </select>
+                </fieldset>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="保存" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">ユーザー一覧へ戻る</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

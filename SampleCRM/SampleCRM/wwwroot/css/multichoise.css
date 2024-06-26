@@ -1,0 +1,18 @@
+﻿/* 複数選択用チェックボックスで使用する */
+legend {
+    font-size: medium;
+}
+
+fieldset {
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+fieldset input {
+    width: 30px;
+}
+
+fieldset label {
+    white-space: nowrap;
+}

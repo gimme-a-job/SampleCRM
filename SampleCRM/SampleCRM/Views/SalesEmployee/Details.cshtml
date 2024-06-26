@@ -1,0 +1,63 @@
+﻿@model SampleCRM.Models.ViewModels.SalesEmployee
+
+@{
+    ViewData["Title"] = "営業担当者詳細";
+}
+
+<h1>営業担当者詳細</h1>
+
+<div>
+    <hr />
+    <dl class="row table-striped">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CompanyName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DepartmentName)
+        </dd>
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EmployeeName)
+        </dt>
+        <dd class = "col-sm-10">
+            <ruby>
+                @Html.DisplayFor(model => model.EmployeeName)
+                <rt>@Html.DisplayFor(model => model.PhoneticName)</rt>
+            </ruby>
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Position)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Position)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CellPhoneNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CellPhoneNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SNS)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SNS)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.EmployeeCode">営業担当者情報修正</a> |
+    <a asp-controller="SalesDepartment" asp-action="Details" asp-route-id="@Model.DepartmentCode">営業部署詳細(営業担当者一覧)へ戻る</a>
+</div>

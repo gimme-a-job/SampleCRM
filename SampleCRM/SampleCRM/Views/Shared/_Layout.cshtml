@@ -1,0 +1,123 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using static SampleCRM.Identity.AuthorizationPolicies
+@using IdentityUser = SampleCRM.Models.TableModels.IdentityUser;
+
+@inject IAuthorizationService AuthorizationService
+@inject SignInManager<IdentityUser> SignInManager
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SampleCRM</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/multichoise.css" asp-append-version="true" />
+    <!-- import the included stylesheet for some (very basic) default styling -->
+    <link rel="stylesheet" href="~/css/PagedList.css" asp-append-version="true" />
+    <!-- ヘッダー色の設定（Local：緑系、Development：青系、ほか：黒系） -->
+    <environment names="Local">
+        <style>
+            #navigationBar {
+                background-color: #009900 !important;
+            }
+        </style>
+    </environment>
+    <environment names="Development">
+        <style>
+            #navigationBar {
+                background-color: #000099 !important;
+            }
+        </style>
+    </environment>
+</head>
+<body>
+    <header>
+        <nav id="navigationBar" class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" style="background-color: #333333">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">SampleCRM</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            @if ((await AuthorizationService.AuthorizeAsync(User, nameof(AnyRolePolicy))).Succeeded)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="ClientCompany" asp-action="Index">●顧客会社情報</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="SalesCompany" asp-action="Index">●営業会社情報</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Order" asp-action="Index">☓発注情報</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Contract" asp-action="Index">☓契約情報</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="License" asp-action="Index">☓ライセンス情報</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="MaintenanceFeeBill" asp-action="Index">☓保守料請求情報</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white">☓検索</a>
+                                </li>
+                            }
+                            @if ((await AuthorizationService.AuthorizeAsync(User, nameof(GlobalAdministratorOnlyPolicy))).Succeeded)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white">☓監査ログ</a>
+                                </li>
+                            }
+                            @if ((await AuthorizationService.AuthorizeAsync(User, nameof(AnyRolePolicy))).Succeeded)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="DataManagement" asp-action="Index">▲管理メニュー</a>
+                                </li>
+                            }
+                            @if ((await AuthorizationService.AuthorizeAsync(User, nameof(UserAdministratorPolicy))).Succeeded)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="Index">●ユーザー管理</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Role" asp-action="Index">●ロール一覧</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - SampleCRM
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jqueryui/jquery-ui.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!--for YubinBango-->
+    <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
+    <script src="~/js/samplepostal.js"></script>
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

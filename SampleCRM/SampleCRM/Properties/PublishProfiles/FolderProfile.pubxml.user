@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\IIS\KdslCRM - Dev -</_PublishTargetUrl>
+    <History>True|2024-05-24T03:48:43.0802661Z;True|2024-05-24T11:41:09.9954405+09:00;True|2024-05-24T11:04:23.2152909+09:00;True|2024-05-24T09:49:15.5539396+09:00;True|2024-05-17T09:53:39.8038692+09:00;True|2024-05-16T18:06:58.9836853+09:00;True|2024-05-16T17:51:30.7999177+09:00;True|2024-05-16T16:17:54.7963584+09:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

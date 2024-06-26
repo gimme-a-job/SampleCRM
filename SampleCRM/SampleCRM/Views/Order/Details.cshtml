@@ -1,0 +1,170 @@
+﻿@using SampleCRM.Controllers;
+
+@model SampleCRM.Models.ViewModels.OrderDetailsViewModel
+
+@{
+    ViewData["Title"] = "発注情報詳細";
+}
+
+<h1>発注情報詳細</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderCode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderCode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DeliveryDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DeliveryDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DeliveryStatusName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DeliveryStatusName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsNewOrderCompany)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsNewOrderCompany)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsPayTogether)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsPayTogether)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClientEmployeeName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClientEmployeeName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SalesEmployeeName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SalesEmployeeName)
+        </dd>
+    </dl>
+
+    <div style="text-align:right">
+        <a asp-action="Edit" asp-route-id="@Model?.OrderCode">編集</a> |
+        <a asp-controller="ClientCompany" asp-action="Index">顧客会社一覧へ戻る</a>
+    </div>
+
+    <br>
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button type="button" class="nav-link active" data-bs-toggle="tab" data-bs-target="#ClientDepartment">
+                支払い
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#Contract">
+                契約
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button type="button" class="nav-link" data-bs-toggle="tab" data-bs-target="#Maintenace">
+                保守料
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <!-- ここから支払い情報 -->
+        <div class="tab-pane fade show active" id="ClientDepartment" role="tabpanel">
+            <br>
+            <h3>支払い情報</h3>
+            @if (Model.PaymentMethodName is null)
+            {
+                <p>
+                    <a asp-controller="ClientDepartment" asp-action="Create" asp-route-id="@Model.OrderCode">支払い情報追加</a>
+                </p>
+            }
+            <div>
+                <hr />
+                @if (Model.PaymentMethodName is null)
+                {
+                    <text><b>支払い情報が登録されていません</b></text>
+                }
+                else
+                {
+                    <dl class="row">
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.PaymentCode)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.PaymentCode)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.PaymentMethodName)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.PaymentMethodName)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.LeaseTerm)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.LeaseTerm)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.NumberOfPayments)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.NumberOfPayments)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.LeaseOrSplitPrice)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.LeaseOrSplitPrice)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.LumpSumPrice)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.LumpSumPrice)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.PaymentNote)
+                        </dt>
+                        <dd class="col-sm-5">
+                            @Html.TextAreaFor(model => model.PaymentNote, new { rows = "5", cols = "80", @readonly = "true" })
+                        </dd>
+                    </dl>
+                }
+            </div>
+        </div>
+
+        <!-- ここから契約情報一覧 -->
+        <div class="tab-pane fade" id="Contract" role="tabpanel">
+            <br>
+            @await Html.PartialAsync("_ContractListPartial", Model.ContractList)
+        </div>
+
+        <!-- ここから保守料情報一覧 -->
+        <div class="tab-pane fade" id="Maintenace" role="tabpanel">
+            <br>
+            @await Html.PartialAsync("_MaintenanceFeeBillListPartial", Model.MaintenanceFeeBillList)
+        </div>
+    </div>
+
+</div>
+<br />
