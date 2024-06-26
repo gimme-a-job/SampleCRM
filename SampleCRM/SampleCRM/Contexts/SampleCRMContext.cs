@@ -140,64 +140,64 @@ namespace SampleCRM.Contexts
             // マスタ系直下のトランザクション系テーブル。
             // （トランザクション系側で使われているものはマスタ系側から物理削除させない。）
             modelBuilder.Entity<Company>()
-                .HasOne( f => f.CompanyStatus )
+                .HasOne<CompanyStatus>()
                 .WithMany()
                 .HasForeignKey( f => f.CompanyStatusCode )
                 .OnDelete( DeleteBehavior.NoAction );
             modelBuilder.Entity<Order>()
-                .HasOne( f => f.DeliveryStatus )
+                .HasOne<DeliveryStatus>()
                 .WithMany()
                 .HasForeignKey( f => f.DeliveryStatusCode )
                 .OnDelete( DeleteBehavior.NoAction );
             modelBuilder.Entity<Payment>()
-                .HasOne( f => f.PaymentMethod )
+                .HasOne<PaymentMethod>()
                 .WithMany()
                 .HasForeignKey( f => f.PaymentMethodCode )
                 .OnDelete( DeleteBehavior.NoAction );
             modelBuilder.Entity<Contract>()
-                .HasOne( f => f.ContractStatus )
+                .HasOne<ContractStatus>()
                 .WithMany()
                 .HasForeignKey( f => f.ContractStatusCode )
                 .OnDelete( DeleteBehavior.NoAction );
             modelBuilder.Entity<Contract>()
-                .HasOne( f => f.UpdateMethod )
+                .HasOne<UpdateMethod>()
                 .WithMany()
                 .HasForeignKey( f => f.UpdateMethodCode )
                 .OnDelete( DeleteBehavior.NoAction );
             modelBuilder.Entity<Contract>()
-                .HasOne( f => f.SystemKind )
+                .HasOne<SystemKind>()
                 .WithMany()
                 .HasForeignKey( f => f.SystemKindCode )
                 .OnDelete( DeleteBehavior.NoAction );
 
             modelBuilder.Entity<SystemLicense>()
-                .HasOne( f => f.LicenseStatus )
+                .HasOne<LicenseStatus>()
                 .WithMany()
                 .HasForeignKey( f => f.LicenseStatusCode )
                 .OnDelete( DeleteBehavior.NoAction );
             modelBuilder.Entity<OffLineLicenseIssuanceHistory>()
-                .HasOne( f => f.LicenseStatus )
+                .HasOne<LicenseStatus>()
                 .WithMany()
                 .HasForeignKey( f => f.LicenseStatusCode )
                 .OnDelete( DeleteBehavior.NoAction );
             modelBuilder.Entity<DataLicense>()
-                .HasOne( f => f.LicenseStatus )
+                .HasOne<LicenseStatus>()
                 .WithMany()
                 .HasForeignKey( f => f.LicenseStatusCode )
                 .OnDelete( DeleteBehavior.NoAction );
 
             modelBuilder.Entity<ChangeLog>()
-                .HasOne( f => f.ChangeUser )
+                .HasOne<IdentityUser>()
                 .WithMany()
                 .HasForeignKey( f => f.ChangeUserCode )
                 .OnDelete( DeleteBehavior.NoAction );
             modelBuilder.Entity<ChangeLog>()
-                .HasOne( f => f.ChangeType )
+                .HasOne<ChangeType>()
                 .WithMany()
                 .HasForeignKey( f => f.ChangeTypeCode )
                 .OnDelete( DeleteBehavior.NoAction );
             modelBuilder.Entity<ChangeLog>()
-                .HasOne( f => f.ChangeTarget )
+                .HasOne<ChangeTarget>()
                 .WithMany()
                 .HasForeignKey( f => f.ChangeTargetCode )
                 .OnDelete( DeleteBehavior.NoAction );
@@ -214,62 +214,62 @@ namespace SampleCRM.Contexts
             // トランザクション系とトランザクション系に挟まれた中間テーブル。
             // （上流側の親からはON DELETE NO ACTION、下流側の親からはON DELETE CASCADE。）
             modelBuilder.Entity<ClientEmployeeToOrder>()
-                .HasOne( f => f.Employee )
+                .HasOne<Employee>()
                 .WithMany()
                 .HasForeignKey( f => f.EmployeeCode )
                 .OnDelete( DeleteBehavior.NoAction );
             modelBuilder.Entity<ClientEmployeeToOrder>()
-                .HasOne( f => f.Order )
+                .HasOne<Order>()
                 .WithMany()
                 .HasForeignKey( f => f.OrderCode )
                 .OnDelete( DeleteBehavior.Cascade );
             modelBuilder.Entity<SalesEmployeeToOrder>()
-                .HasOne( f => f.Employee )
+                .HasOne<Employee>()
                 .WithMany()
                 .HasForeignKey( f => f.EmployeeCode )
                 .OnDelete( DeleteBehavior.NoAction );
             modelBuilder.Entity<SalesEmployeeToOrder>()
-                .HasOne( f => f.Order )
+                .HasOne<Order>()
                 .WithMany()
                 .HasForeignKey( f => f.OrderCode )
                 .OnDelete( DeleteBehavior.Cascade );
             modelBuilder.Entity<OrderToPayment>()
-                .HasOne( f => f.Order )
+                .HasOne<Order>()
                 .WithMany()
                 .HasForeignKey( f => f.OrderCode )
                 .OnDelete( DeleteBehavior.NoAction );
             modelBuilder.Entity<OrderToPayment>()
-                .HasOne( f => f.Payment )
+                .HasOne<Payment>()
                 .WithMany()
                 .HasForeignKey( f => f.PaymentCode )
                 .OnDelete( DeleteBehavior.Cascade );
             modelBuilder.Entity<ContractToMaintenanceFee>()
-                .HasOne( f => f.Contract )
+                .HasOne<Contract>()
                 .WithMany()
                 .HasForeignKey( f => f.ContractCode )
                 .OnDelete( DeleteBehavior.NoAction );
             modelBuilder.Entity<ContractToMaintenanceFee>()
-                .HasOne( f => f.MaintenanceFee )
+                .HasOne<MaintenanceFee>()
                 .WithMany()
                 .HasForeignKey( f => f.MaintenanceFeeCode )
                 .OnDelete( DeleteBehavior.Cascade );
             modelBuilder.Entity<MaintenanceFeeToBill>()
-                .HasOne( f => f.MaintenanceFee )
+                .HasOne<MaintenanceFee>()
                 .WithMany()
                 .HasForeignKey( f => f.MaintenanceFeeCode )
                 .OnDelete( DeleteBehavior.NoAction );
             modelBuilder.Entity<MaintenanceFeeToBill>()
-                .HasOne( f => f.MaintenanceFeeBill )
+                .HasOne<MaintenanceFeeBill>()
                 .WithMany()
                 .HasForeignKey( f => f.BillCode )
                 .OnDelete( DeleteBehavior.Cascade );
             modelBuilder.Entity<MaintenanceFeeBillToClearance>()
-                .HasOne( f => f.MaintenanceFeeBill )
+                .HasOne<MaintenanceFeeBill>()
                 .WithMany()
                 .HasForeignKey( f => f.BillCode )
                 .OnDelete( DeleteBehavior.NoAction );
             modelBuilder.Entity<MaintenanceFeeBillToClearance>()
-                .HasOne( f => f.MaintenanceFeeClearance )
+                .HasOne<MaintenanceFeeClearance>()
                 .WithMany()
                 .HasForeignKey( f => f.ClearanceCode )
                 .OnDelete( DeleteBehavior.Cascade );

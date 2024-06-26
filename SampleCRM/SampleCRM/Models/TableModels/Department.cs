@@ -22,8 +22,6 @@ namespace SampleCRM.Models.TableModels
         [Comment( "会社コード" )]
         public int CompanyCode { get; set; }
 
-        // WARNING: ForeignKey属性を持つプロパティを追加しない。
-
         [Required]
         [Display( Name = "代表部署かどうか" )]
         [Comment( "代表部署かどうか" )]

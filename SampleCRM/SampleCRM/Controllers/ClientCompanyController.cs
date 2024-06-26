@@ -120,7 +120,7 @@ namespace SampleCRM.Controllers
                     && !string.IsNullOrEmpty( selectedCompanyStatus ) // 「全て」が選択されているかどうかをこちらで確認している
                     && int.TryParse( selectedCompanyStatus, out selectedCompanyStatusCode ) )
                 {
-                    filteredRecords = filteredRecords.Where( x => x.CompanyStatus.CompanyStatusCode == selectedCompanyStatusCode );
+                    filteredRecords = filteredRecords.Where( x => x.CompanyStatusCode == selectedCompanyStatusCode );
                 }
 
                 // 会社コードの昇順・降順

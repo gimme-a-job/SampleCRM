@@ -22,8 +22,6 @@ namespace SampleCRM.Models.TableModels
         [Comment( "システムライセンスコード" )]
         public int SystemLicenseCode { get; set; }
 
-        // WARNING: ForeignKey属性を持つプロパティを追加しない。
-
         [Required]
         [Display( Name = "開始日" )]
         [Comment( "開始日" )]
@@ -48,8 +46,5 @@ namespace SampleCRM.Models.TableModels
         [Display( Name = "備考" )]
         [Comment( "備考" )]
         public string Note { get; set; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual LicenseStatus LicenseStatus { get; }
     }
 }

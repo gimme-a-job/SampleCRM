@@ -44,8 +44,5 @@ namespace SampleCRM.Models.TableModels
         [Display( Name = "発注書でまとめて支払うかどうか" )]
         [Comment( "発注書でまとめて支払うかどうか" )]
         public bool IsPayTogether { get; set; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual DeliveryStatus DeliveryStatus { get; }
     }
 }

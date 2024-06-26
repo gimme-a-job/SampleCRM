@@ -22,8 +22,6 @@ namespace SampleCRM.Models.TableModels
         [Comment( "契約コード" )]
         public int ContractCode { get; set; }
 
-        // WARNING: ForeignKey属性を持つプロパティを追加しない。
-
         [Display( Name = "CD発送日" )]
         [Comment( "CD発送日" )]
         [Precision( 0 )]

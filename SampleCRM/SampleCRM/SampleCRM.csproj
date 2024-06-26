@@ -9,6 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Components\**" />
+    <Compile Remove="ExcelDefinitions\**" />
+    <Compile Remove="Migrations\**" />
+    <Content Remove="Components\**" />
+    <Content Remove="ExcelDefinitions\**" />
+    <Content Remove="Migrations\**" />
+    <EmbeddedResource Remove="Components\**" />
+    <EmbeddedResource Remove="ExcelDefinitions\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Components\**" />
+    <None Remove="ExcelDefinitions\**" />
+    <None Remove="Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.102.2" />
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />
     <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
@@ -32,10 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\" />
-    <Folder Include="ExcelDefinitions\" />
     <Folder Include="Logs\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>

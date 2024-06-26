@@ -59,8 +59,5 @@ namespace SampleCRM.Models.TableModels
         [Display( Name = "備考" )]
         [Comment( "備考" )]
         public string Note { get; set; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual CompanyStatus CompanyStatus { get; }
     }
 }

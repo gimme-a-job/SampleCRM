@@ -19,11 +19,5 @@ namespace SampleCRM.Models.TableModels
         [Display( Name = "保守料コード" )]
         [Comment( "保守料コード" )]
         public int MaintenanceFeeCode { get; set; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual Contract Contract { get; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual MaintenanceFee MaintenanceFee { get; }
     }
 }

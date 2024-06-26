@@ -41,8 +41,6 @@ namespace SampleCRM.Models.TableModels
         [Comment( "変更会社コード" )]
         public int ChangeCompanyCode { get; set; }
 
-        // WARNING: ForeignKey属性を持つプロパティを追加しない。
-
         [Required]
         [Display( Name = "変更対象コード" )]
         [Comment( "変更対象コード" )]
@@ -62,14 +60,5 @@ namespace SampleCRM.Models.TableModels
         [Display( Name = "変更後情報" )]
         [Comment( "変更後情報" )]
         public string AfterInformation { get; set; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual IdentityUser ChangeUser { get; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual ChangeType ChangeType { get; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual ChangeTarget ChangeTarget { get; }
     }
 }

@@ -27,8 +27,6 @@ namespace SampleCRM.Models.TableModels
         [Comment( "請求部署コード" )]
         public int BillingDepartmentCode { get; set; }
 
-        // WARNING: ForeignKey属性を持つプロパティを追加しない。
-
         [Display( Name = "請求日" )]
         [Comment( "請求日" )]
         [Precision( 0 )]

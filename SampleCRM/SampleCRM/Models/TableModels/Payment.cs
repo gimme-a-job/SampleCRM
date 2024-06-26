@@ -42,8 +42,5 @@ namespace SampleCRM.Models.TableModels
         [Display( Name = "支払い備考" )]
         [Comment( "支払い備考" )]
         public string PaymentNote { get; set; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual PaymentMethod PaymentMethod { get; }
     }
 }

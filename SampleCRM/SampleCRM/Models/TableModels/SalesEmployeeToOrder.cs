@@ -19,11 +19,5 @@ namespace SampleCRM.Models.TableModels
         [Display( Name = "発注コード" )]
         [Comment( "発注コード" )]
         public int OrderCode { get; set; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual Employee Employee { get; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual Order Order { get; }
     }
 }

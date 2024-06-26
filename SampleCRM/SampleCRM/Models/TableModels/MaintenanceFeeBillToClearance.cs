@@ -19,11 +19,5 @@ namespace SampleCRM.Models.TableModels
         [Display( Name = "消込コード" )]
         [Comment( "消込コード" )]
         public int ClearanceCode { get; set; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual MaintenanceFeeBill MaintenanceFeeBill { get; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual MaintenanceFeeClearance MaintenanceFeeClearance { get; }
     }
 }

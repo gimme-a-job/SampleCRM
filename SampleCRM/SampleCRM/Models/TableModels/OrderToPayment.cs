@@ -19,11 +19,5 @@ namespace SampleCRM.Models.TableModels
         [Display( Name = "支払いコード" )]
         [Comment( "支払いコード" )]
         public int PaymentCode { get; set; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual Order Order { get; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual Payment Payment { get; }
     }
 }

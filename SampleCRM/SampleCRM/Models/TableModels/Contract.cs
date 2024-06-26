@@ -48,14 +48,5 @@ namespace SampleCRM.Models.TableModels
         [Display( Name = "発送備考" )]
         [Comment( "発送備考" )]
         public string ShippingNote { get; set; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual ContractStatus ContractStatus { get; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual UpdateMethod UpdateMethod { get; }
-
-        // WARNING: ForeignKey属性を追加しない。setアクセサを追加しない。
-        public virtual SystemKind SystemKind { get; }
     }
 }
